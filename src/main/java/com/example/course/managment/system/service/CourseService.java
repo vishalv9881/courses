@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CourseService {
 
@@ -25,4 +28,19 @@ public class CourseService {
         return courseTranslator.entityToDto(course);
 
     }
+
+    public ResponseEntity<CourseResponseDto> getCourseById(Long courseId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+        CourseResponseDto courseResponseDto = courseTranslator.entityToDto(course);
+        return ResponseEntity.ok(courseResponseDto);
+    }
+
+    public List<CourseResponseDto> getAllCourses() {
+        List<Course> courses = courseRepository.findAll();
+        return courses.stream()
+                .map(course -> courseTranslator.entityToDto(course))
+                .collect(Collectors.toList());
+    }
+
 }

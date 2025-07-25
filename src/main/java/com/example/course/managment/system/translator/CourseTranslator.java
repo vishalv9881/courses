@@ -52,4 +52,5 @@ public class CourseTranslator {
         dto.setCoursePrice(course.getCoursePrice());
         return dto;
     }
+
 }

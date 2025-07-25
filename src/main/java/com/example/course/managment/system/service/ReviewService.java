@@ -20,6 +20,8 @@ public class ReviewService {
 
     @Autowired
     private ReviewTranslator reviewTranslator;
+
+
     public ReviewRequestDto addReview(Long courseId, ReviewRequestDto dto) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
@@ -31,6 +33,20 @@ public class ReviewService {
 
         return reviewTranslator.translateToDto(review);
     }
+
+    public ReviewRequestDto getReviewByCourseId(Long courseId) {
+        return reviewRepository.findById(courseId)
+                .map(reviewTranslator::translateToDto)
+                .orElse(null);
+
+    }
+
+    public ReviewRequestDto getAllReviewsByCourseId(Long courseId) {
+        return reviewRepository.findById(courseId)
+                .map(reviewTranslator::translateToDto)
+                .orElse(null);
+    }
+
 }
 
 

@@ -23,5 +23,25 @@ public class ReviewController {
     }
 
 
+    @GetMapping("/course/{courseId}")
+    public ResponseEntity<ReviewRequestDto> getReviewByCourseId(@PathVariable Long courseId) {
+        ReviewRequestDto review = reviewService.getReviewByCourseId(courseId);
+        if (review != null) {
+            return ResponseEntity.ok(review);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+
+    @GetMapping("/course/{courseId}/reviews")
+    public ResponseEntity<ReviewRequestDto> getAllReviewsByCourseId(@PathVariable Long courseId) {
+        ReviewRequestDto review = reviewService.getReviewByCourseId(courseId);
+        if (review != null) {
+            return ResponseEntity.ok(review);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
 }
